@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Western Ghats Adventure</title>
+    <title>Monsoon 2025 - Western Ghats Adventure</title>
+    
+    <!-- Beautiful Fonts First -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -12,18 +18,15 @@
         }
 
         body {
-            font-family: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(180deg, #0a0f1c 0%, #1a2332 15%, #1e3a2f 35%, #2d4a3d 60%, #1a2f1a 85%, #0d1b0d 100%);
             min-height: 100vh;
             overflow-x: hidden;
             color: white;
             position: relative;
+            font-weight: 400;
+            line-height: 1.6;
         }
-
-        /* Import Beautiful Modern Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap');
 
         /* Forest texture overlay */
         body::before {
@@ -99,92 +102,7 @@
         .floating-particle:nth-child(9) { top: 45%; right: 35%; animation-delay: 14s; }
         .floating-particle:nth-child(10) { bottom: 60%; left: 30%; animation-delay: 18s; }
 
-        /* Interactive High-Quality Waterfalls */
-        .waterfall-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .waterfall {
-            position: absolute;
-            width: 8px;
-            height: 0;
-            background: linear-gradient(to bottom, 
-                rgba(14, 165, 233, 0.9) 0%,
-                rgba(56, 189, 248, 0.8) 15%,
-                rgba(125, 211, 252, 0.7) 35%,
-                rgba(186, 230, 253, 0.6) 55%,
-                rgba(224, 242, 254, 0.4) 75%,
-                rgba(255, 255, 255, 0.2) 90%,
-                transparent 100%);
-            border-radius: 4px;
-            filter: blur(0.5px);
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            box-shadow: 
-                0 0 10px rgba(14, 165, 233, 0.3),
-                inset 0 0 5px rgba(255, 255, 255, 0.2);
-        }
-
-        .waterfall.active {
-            height: 100vh;
-            opacity: 0.8;
-            animation: waterfallFlow 2s linear infinite;
-        }
-
-        .waterfall:nth-child(1) { left: 8%; }
-        .waterfall:nth-child(2) { right: 12%; }
-        .waterfall:nth-child(3) { left: 25%; }
-        .waterfall:nth-child(4) { right: 30%; }
-        .waterfall:nth-child(5) { left: 70%; }
-        .waterfall:nth-child(6) { left: 45%; }
-        .waterfall:nth-child(7) { right: 5%; }
-        .waterfall:nth-child(8) { left: 15%; }
-
-        /* High-Quality Water Droplets */
-        .water-droplet {
-            position: absolute;
-            width: 3px;
-            height: 12px;
-            background: 
-                radial-gradient(ellipse at top, rgba(56, 189, 248, 0.9), rgba(125, 211, 252, 0.7)),
-                linear-gradient(to bottom, rgba(14, 165, 233, 0.8), rgba(186, 230, 253, 0.5));
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            opacity: 0;
-            transform: translateY(-100vh);
-            transition: opacity 0.3s ease;
-            box-shadow: 
-                0 0 6px rgba(14, 165, 233, 0.4),
-                inset 0 0 3px rgba(255, 255, 255, 0.3);
-        }
-
-        .water-droplet.active {
-            opacity: 0.8;
-            animation: dropFall 1.5s linear infinite;
-        }
-
-        /* Enhanced Splash Effects */
-        .water-splash {
-            position: absolute;
-            bottom: 8%;
-            width: 30px;
-            height: 6px;
-            background: 
-                radial-gradient(ellipse, rgba(56, 189, 248, 0.8) 0%, rgba(125, 211, 252, 0.6) 40%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
-        }
-
-        .water-splash.active {
-            opacity: 0.7;
-            animation: splash 2s ease-in-out infinite;
-        }
+        /* Clean Design - No Ugly Lines */
 
         @keyframes floatLeaf {
             0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.4; }
@@ -200,73 +118,7 @@
             100% { transform: translateY(-100vh) translateX(50px) scale(0); opacity: 0; }
         }
 
-        @keyframes waterfallFlow {
-            0% { 
-                background-position: 0% 0%;
-                transform: scaleY(1) scaleX(1);
-                filter: blur(0.5px);
-            }
-            25% { 
-                transform: scaleY(1.01) scaleX(1.1);
-                filter: blur(0.3px);
-            }
-            50% { 
-                background-position: 0% 50%;
-                transform: scaleY(1.02) scaleX(0.9);
-                filter: blur(0.7px);
-            }
-            75% { 
-                transform: scaleY(1.01) scaleX(1.05);
-                filter: blur(0.4px);
-            }
-            100% { 
-                background-position: 0% 100%;
-                transform: scaleY(1) scaleX(1);
-                filter: blur(0.5px);
-            }
-        }
-
-        @keyframes dropFall {
-            0% { 
-                transform: translateY(-20px) scale(0) rotate(0deg);
-                opacity: 0;
-            }
-            5% {
-                opacity: 0.8;
-                transform: translateY(0) scale(1) rotate(0deg);
-            }
-            95% {
-                opacity: 0.8;
-                transform: scale(1.1) rotate(5deg);
-            }
-            100% { 
-                transform: translateY(100vh) scale(0) rotate(10deg);
-                opacity: 0;
-            }
-        }
-
-        @keyframes splash {
-            0% { 
-                transform: scale(0) rotate(0deg);
-                opacity: 0;
-            }
-            20% {
-                transform: scale(1) rotate(5deg);
-                opacity: 0.7;
-            }
-            40% {
-                transform: scale(1.8) rotate(-3deg);
-                opacity: 0.5;
-            }
-            70% {
-                transform: scale(2.5) rotate(2deg);
-                opacity: 0.3;
-            }
-            100% {
-                transform: scale(3) rotate(0deg);
-                opacity: 0;
-            }
-        }
+        /* Clean animations only */
 
         .container {
             position: relative;
@@ -284,9 +136,9 @@
         }
 
         .main-title {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Manrope', sans-serif;
             font-size: clamp(3.5rem, 7vw, 6rem);
-            font-weight: 700;
+            font-weight: 800;
             background: linear-gradient(135deg, #00d4aa 0%, #4ade80 25%, #22c55e 50%, #16a34a 75%, #0ea5e9 100%);
             background-size: 300% 300%;
             background-clip: text;
@@ -297,7 +149,7 @@
                 0 0 100px rgba(16, 185, 129, 0.4);
             margin-bottom: 25px;
             animation: titleGlow 3s ease-in-out infinite alternate, gradientShift 8s ease-in-out infinite;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             text-transform: uppercase;
             position: relative;
             font-feature-settings: 'liga' on, 'kern' on;
@@ -334,10 +186,10 @@
         }
 
         .subtitle {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 1.6rem;
             color: #86efac;
-            font-weight: 500;
+            font-weight: 600;
             opacity: 0.95;
             letter-spacing: 2px;
             text-shadow: 0 2px 15px rgba(134, 239, 172, 0.4);
@@ -418,18 +270,18 @@
         }
 
         .day-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Manrope', sans-serif;
             font-size: 2.5rem;
             font-weight: 700;
             color: #66d9a5;
             margin-bottom: 10px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-shadow: 0 3px 20px rgba(102, 217, 165, 0.5);
             font-feature-settings: 'liga' on;
         }
 
         .day-date {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 1.4rem;
             color: #a7f3d0;
             font-weight: 500;
@@ -582,7 +434,7 @@
         }
 
         .activity-name {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Manrope', sans-serif;
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 12px;
@@ -593,7 +445,7 @@
         }
 
         .activity-description {
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             color: #d1d5db;
             font-size: 1.1rem;
             line-height: 1.6;
@@ -931,37 +783,7 @@
         <div class="floating-particle"></div>
         <div class="floating-particle"></div>
         
-        <!-- Interactive Waterfall Container -->
-        <div class="waterfall-container">
-            <div class="waterfall" data-position="left-1"></div>
-            <div class="waterfall" data-position="right-1"></div>
-            <div class="waterfall" data-position="left-2"></div>
-            <div class="waterfall" data-position="right-2"></div>
-            <div class="waterfall" data-position="left-3"></div>
-            <div class="waterfall" data-position="center"></div>
-            <div class="waterfall" data-position="right-3"></div>
-            <div class="waterfall" data-position="left-4"></div>
-            
-            <!-- Water Droplets -->
-            <div class="water-droplet" style="left: 8.5%;"></div>
-            <div class="water-droplet" style="right: 12.5%;"></div>
-            <div class="water-droplet" style="left: 25.5%;"></div>
-            <div class="water-droplet" style="right: 30.5%;"></div>
-            <div class="water-droplet" style="left: 70.5%;"></div>
-            <div class="water-droplet" style="left: 45.5%;"></div>
-            <div class="water-droplet" style="right: 5.5%;"></div>
-            <div class="water-droplet" style="left: 15.5%;"></div>
-            
-            <!-- Water Splash Effects -->
-            <div class="water-splash" style="left: 7%;"></div>
-            <div class="water-splash" style="right: 11%;"></div>
-            <div class="water-splash" style="left: 24%;"></div>
-            <div class="water-splash" style="right: 29%;"></div>
-            <div class="water-splash" style="left: 69%;"></div>
-            <div class="water-splash" style="left: 44%;"></div>
-            <div class="water-splash" style="right: 4%;"></div>
-            <div class="water-splash" style="left: 14%;"></div>
-        </div>
+        <!-- Clean Background - No Ugly Lines -->
     </div>
 
     <div class="container">
@@ -1491,71 +1313,7 @@
             // Smooth scrolling for better UX
             document.documentElement.style.scrollBehavior = 'smooth';
 
-            // Interactive Waterfall System
-            let waterfallTimeout;
-            const waterfalls = document.querySelectorAll('.waterfall');
-            const waterDroplets = document.querySelectorAll('.water-droplet');
-            const waterSplashes = document.querySelectorAll('.water-splash');
-
-            function activateWaterfalls() {
-                // Activate waterfalls with staggered timing
-                waterfalls.forEach((waterfall, index) => {
-                    setTimeout(() => {
-                        waterfall.classList.add('active');
-                    }, index * 200);
-                });
-
-                // Activate droplets with delay
-                setTimeout(() => {
-                    waterDroplets.forEach((droplet, index) => {
-                        setTimeout(() => {
-                            droplet.classList.add('active');
-                        }, index * 150);
-                    });
-                }, 800);
-
-                // Activate splashes with delay
-                setTimeout(() => {
-                    waterSplashes.forEach((splash, index) => {
-                        setTimeout(() => {
-                            splash.classList.add('active');
-                        }, index * 180);
-                    });
-                }, 1200);
-            }
-
-            function deactivateWaterfalls() {
-                waterfalls.forEach(waterfall => waterfall.classList.remove('active'));
-                waterDroplets.forEach(droplet => droplet.classList.remove('active'));
-                waterSplashes.forEach(splash => splash.classList.remove('active'));
-            }
-
-            // Mouse hover activation
-            document.addEventListener('mousemove', () => {
-                clearTimeout(waterfallTimeout);
-                activateWaterfalls();
-                
-                // Deactivate after 3 seconds of no mouse movement
-                waterfallTimeout = setTimeout(() => {
-                    deactivateWaterfalls();
-                }, 3000);
-            });
-
-            // Touch activation for mobile
-            document.addEventListener('touchstart', () => {
-                activateWaterfalls();
-                setTimeout(() => {
-                    deactivateWaterfalls();
-                }, 4000);
-            });
-
-            // Initial activation for first impression
-            setTimeout(() => {
-                activateWaterfalls();
-                setTimeout(() => {
-                    deactivateWaterfalls();
-                }, 2000);
-            }, 1000);
+            // Clean interface - no ugly waterfall lines
 
             // Photo gallery animations
             const photoObserver = new IntersectionObserver((entries) => {
