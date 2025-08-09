@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Poppins', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'DM Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(180deg, #0a0f1c 0%, #1a2332 15%, #1e3a2f 35%, #2d4a3d 60%, #1a2f1a 85%, #0d1b0d 100%);
             min-height: 100vh;
             overflow-x: hidden;
@@ -20,10 +20,10 @@
             position: relative;
         }
 
-        /* Import Premium Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        /* Import Beautiful Modern Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&display=swap');
 
         /* Forest texture overlay */
         body::before {
@@ -99,64 +99,92 @@
         .floating-particle:nth-child(9) { top: 45%; right: 35%; animation-delay: 14s; }
         .floating-particle:nth-child(10) { bottom: 60%; left: 30%; animation-delay: 18s; }
 
-        /* Animated Waterfalls */
+        /* Interactive High-Quality Waterfalls */
+        .waterfall-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
         .waterfall {
             position: absolute;
-            width: 4px;
-            height: 100vh;
+            width: 8px;
+            height: 0;
             background: linear-gradient(to bottom, 
-                rgba(14, 165, 233, 0.8) 0%,
-                rgba(56, 189, 248, 0.6) 20%,
-                rgba(125, 211, 252, 0.4) 40%,
-                rgba(186, 230, 253, 0.3) 60%,
-                rgba(224, 242, 254, 0.2) 80%,
+                rgba(14, 165, 233, 0.9) 0%,
+                rgba(56, 189, 248, 0.8) 15%,
+                rgba(125, 211, 252, 0.7) 35%,
+                rgba(186, 230, 253, 0.6) 55%,
+                rgba(224, 242, 254, 0.4) 75%,
+                rgba(255, 255, 255, 0.2) 90%,
                 transparent 100%);
-            animation: waterfallFlow 3s linear infinite;
-            border-radius: 2px;
-            filter: blur(1px);
-            opacity: 0.7;
+            border-radius: 4px;
+            filter: blur(0.5px);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 
+                0 0 10px rgba(14, 165, 233, 0.3),
+                inset 0 0 5px rgba(255, 255, 255, 0.2);
         }
 
-        .waterfall:nth-child(11) { left: 8%; animation-delay: 0s; height: 80vh; }
-        .waterfall:nth-child(12) { right: 12%; animation-delay: 1s; height: 90vh; }
-        .waterfall:nth-child(13) { left: 25%; animation-delay: 2s; height: 75vh; }
-        .waterfall:nth-child(14) { right: 30%; animation-delay: 0.5s; height: 85vh; }
-        .waterfall:nth-child(15) { left: 70%; animation-delay: 1.5s; height: 95vh; }
+        .waterfall.active {
+            height: 100vh;
+            opacity: 0.8;
+            animation: waterfallFlow 2s linear infinite;
+        }
 
-        /* Water droplets */
+        .waterfall:nth-child(1) { left: 8%; }
+        .waterfall:nth-child(2) { right: 12%; }
+        .waterfall:nth-child(3) { left: 25%; }
+        .waterfall:nth-child(4) { right: 30%; }
+        .waterfall:nth-child(5) { left: 70%; }
+        .waterfall:nth-child(6) { left: 45%; }
+        .waterfall:nth-child(7) { right: 5%; }
+        .waterfall:nth-child(8) { left: 15%; }
+
+        /* High-Quality Water Droplets */
         .water-droplet {
             position: absolute;
-            width: 2px;
-            height: 8px;
-            background: linear-gradient(to bottom, rgba(56, 189, 248, 0.8), rgba(125, 211, 252, 0.4));
+            width: 3px;
+            height: 12px;
+            background: 
+                radial-gradient(ellipse at top, rgba(56, 189, 248, 0.9), rgba(125, 211, 252, 0.7)),
+                linear-gradient(to bottom, rgba(14, 165, 233, 0.8), rgba(186, 230, 253, 0.5));
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            animation: dropFall 2s linear infinite;
-            opacity: 0.6;
+            opacity: 0;
+            transform: translateY(-100vh);
+            transition: opacity 0.3s ease;
+            box-shadow: 
+                0 0 6px rgba(14, 165, 233, 0.4),
+                inset 0 0 3px rgba(255, 255, 255, 0.3);
         }
 
-        .water-droplet:nth-child(16) { left: 8.5%; animation-delay: 0.2s; }
-        .water-droplet:nth-child(17) { right: 12.5%; animation-delay: 1.2s; }
-        .water-droplet:nth-child(18) { left: 25.5%; animation-delay: 2.2s; }
-        .water-droplet:nth-child(19) { right: 30.5%; animation-delay: 0.7s; }
-        .water-droplet:nth-child(20) { left: 70.5%; animation-delay: 1.7s; }
+        .water-droplet.active {
+            opacity: 0.8;
+            animation: dropFall 1.5s linear infinite;
+        }
 
-        /* Splash effects at bottom */
+        /* Enhanced Splash Effects */
         .water-splash {
             position: absolute;
-            bottom: 10%;
-            width: 20px;
-            height: 3px;
-            background: radial-gradient(ellipse, rgba(56, 189, 248, 0.6), transparent);
+            bottom: 8%;
+            width: 30px;
+            height: 6px;
+            background: 
+                radial-gradient(ellipse, rgba(56, 189, 248, 0.8) 0%, rgba(125, 211, 252, 0.6) 40%, transparent 70%);
             border-radius: 50%;
-            animation: splash 3s linear infinite;
-            opacity: 0.5;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
         }
 
-        .water-splash:nth-child(21) { left: 7%; animation-delay: 0s; }
-        .water-splash:nth-child(22) { right: 11%; animation-delay: 1s; }
-        .water-splash:nth-child(23) { left: 24%; animation-delay: 2s; }
-        .water-splash:nth-child(24) { right: 29%; animation-delay: 0.5s; }
-        .water-splash:nth-child(25) { left: 69%; animation-delay: 1.5s; }
+        .water-splash.active {
+            opacity: 0.7;
+            animation: splash 2s ease-in-out infinite;
+        }
 
         @keyframes floatLeaf {
             0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.4; }
@@ -175,49 +203,67 @@
         @keyframes waterfallFlow {
             0% { 
                 background-position: 0% 0%;
-                opacity: 0.7;
-                transform: scaleY(1);
+                transform: scaleY(1) scaleX(1);
+                filter: blur(0.5px);
+            }
+            25% { 
+                transform: scaleY(1.01) scaleX(1.1);
+                filter: blur(0.3px);
             }
             50% { 
-                opacity: 0.9;
-                transform: scaleY(1.02);
+                background-position: 0% 50%;
+                transform: scaleY(1.02) scaleX(0.9);
+                filter: blur(0.7px);
+            }
+            75% { 
+                transform: scaleY(1.01) scaleX(1.05);
+                filter: blur(0.4px);
             }
             100% { 
                 background-position: 0% 100%;
-                opacity: 0.7;
-                transform: scaleY(1);
+                transform: scaleY(1) scaleX(1);
+                filter: blur(0.5px);
             }
         }
 
         @keyframes dropFall {
             0% { 
-                transform: translateY(-100vh) scale(0);
+                transform: translateY(-20px) scale(0) rotate(0deg);
                 opacity: 0;
             }
-            10% {
-                opacity: 0.6;
-                transform: scale(1);
+            5% {
+                opacity: 0.8;
+                transform: translateY(0) scale(1) rotate(0deg);
             }
-            90% {
-                opacity: 0.6;
+            95% {
+                opacity: 0.8;
+                transform: scale(1.1) rotate(5deg);
             }
             100% { 
-                transform: translateY(100vh) scale(0);
+                transform: translateY(100vh) scale(0) rotate(10deg);
                 opacity: 0;
             }
         }
 
         @keyframes splash {
-            0%, 90% { 
-                transform: scale(0);
+            0% { 
+                transform: scale(0) rotate(0deg);
                 opacity: 0;
             }
-            95% {
-                transform: scale(1.5);
-                opacity: 0.6;
+            20% {
+                transform: scale(1) rotate(5deg);
+                opacity: 0.7;
+            }
+            40% {
+                transform: scale(1.8) rotate(-3deg);
+                opacity: 0.5;
+            }
+            70% {
+                transform: scale(2.5) rotate(2deg);
+                opacity: 0.3;
             }
             100% {
-                transform: scale(2);
+                transform: scale(3) rotate(0deg);
                 opacity: 0;
             }
         }
@@ -238,22 +284,23 @@
         }
 
         .main-title {
-            font-family: 'Orbitron', 'Poppins', sans-serif;
-            font-size: clamp(3rem, 6vw, 5.5rem);
-            font-weight: 900;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3.5rem, 7vw, 6rem);
+            font-weight: 700;
             background: linear-gradient(135deg, #00d4aa 0%, #4ade80 25%, #22c55e 50%, #16a34a 75%, #0ea5e9 100%);
             background-size: 300% 300%;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 
-                0 0 40px rgba(34, 197, 94, 0.4),
-                0 0 80px rgba(16, 185, 129, 0.2);
-            margin-bottom: 20px;
+                0 0 60px rgba(34, 197, 94, 0.6),
+                0 0 100px rgba(16, 185, 129, 0.4);
+            margin-bottom: 25px;
             animation: titleGlow 3s ease-in-out infinite alternate, gradientShift 8s ease-in-out infinite;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             position: relative;
+            font-feature-settings: 'liga' on, 'kern' on;
         }
 
         .main-title::before {
@@ -287,14 +334,15 @@
         }
 
         .subtitle {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.6rem;
             color: #86efac;
-            font-weight: 600;
+            font-weight: 500;
             opacity: 0.95;
-            letter-spacing: 1.5px;
-            text-shadow: 0 2px 10px rgba(134, 239, 172, 0.3);
-            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 15px rgba(134, 239, 172, 0.4);
+            margin-bottom: 15px;
+            font-feature-settings: 'liga' on;
         }
 
         /* Days Container */
@@ -370,22 +418,24 @@
         }
 
         .day-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
             color: #66d9a5;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-            text-shadow: 0 2px 15px rgba(102, 217, 165, 0.4);
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            text-shadow: 0 3px 20px rgba(102, 217, 165, 0.5);
+            font-feature-settings: 'liga' on;
         }
 
         .day-date {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.3rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.4rem;
             color: #a7f3d0;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-shadow: 0 1px 8px rgba(167, 243, 208, 0.3);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 12px rgba(167, 243, 208, 0.4);
+            font-feature-settings: 'liga' on;
         }
 
         /* Activities Grid */
@@ -532,20 +582,24 @@
         }
 
         .activity-name {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
             color: white;
             letter-spacing: 0.5px;
-            text-shadow: 0 1px 10px rgba(255, 255, 255, 0.2);
+            text-shadow: 0 2px 15px rgba(255, 255, 255, 0.3);
+            font-feature-settings: 'liga' on;
         }
 
         .activity-description {
+            font-family: 'DM Sans', sans-serif;
             color: #d1d5db;
-            font-size: 1rem;
-            line-height: 1.5;
-            opacity: 0.9;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.95;
+            font-weight: 400;
+            letter-spacing: 0.3px;
         }
 
         /* Special Effects */
@@ -786,21 +840,33 @@
             }
             
             .main-title {
-                font-size: 2.8rem;
-                letter-spacing: 1px;
+                font-size: 3rem;
+                letter-spacing: 2px;
             }
 
             .subtitle {
-                font-size: 1.2rem;
-                letter-spacing: 1px;
+                font-size: 1.3rem;
+                letter-spacing: 1.5px;
             }
 
             .day-title {
-                font-size: 1.8rem;
+                font-size: 2rem;
+                letter-spacing: 0.3px;
             }
 
             .day-date {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+                letter-spacing: 0.8px;
+            }
+
+            .activity-name {
+                font-size: 1.3rem;
+                letter-spacing: 0.3px;
+            }
+
+            .activity-description {
+                font-size: 1rem;
+                letter-spacing: 0.2px;
             }
 
             .photo-gallery {
@@ -864,24 +930,38 @@
         <div class="floating-particle"></div>
         <div class="floating-particle"></div>
         <div class="floating-particle"></div>
-        <!-- Animated Waterfalls -->
-        <div class="waterfall"></div>
-        <div class="waterfall"></div>
-        <div class="waterfall"></div>
-        <div class="waterfall"></div>
-        <div class="waterfall"></div>
-        <!-- Water Droplets -->
-        <div class="water-droplet"></div>
-        <div class="water-droplet"></div>
-        <div class="water-droplet"></div>
-        <div class="water-droplet"></div>
-        <div class="water-droplet"></div>
-        <!-- Water Splash Effects -->
-        <div class="water-splash"></div>
-        <div class="water-splash"></div>
-        <div class="water-splash"></div>
-        <div class="water-splash"></div>
-        <div class="water-splash"></div>
+        
+        <!-- Interactive Waterfall Container -->
+        <div class="waterfall-container">
+            <div class="waterfall" data-position="left-1"></div>
+            <div class="waterfall" data-position="right-1"></div>
+            <div class="waterfall" data-position="left-2"></div>
+            <div class="waterfall" data-position="right-2"></div>
+            <div class="waterfall" data-position="left-3"></div>
+            <div class="waterfall" data-position="center"></div>
+            <div class="waterfall" data-position="right-3"></div>
+            <div class="waterfall" data-position="left-4"></div>
+            
+            <!-- Water Droplets -->
+            <div class="water-droplet" style="left: 8.5%;"></div>
+            <div class="water-droplet" style="right: 12.5%;"></div>
+            <div class="water-droplet" style="left: 25.5%;"></div>
+            <div class="water-droplet" style="right: 30.5%;"></div>
+            <div class="water-droplet" style="left: 70.5%;"></div>
+            <div class="water-droplet" style="left: 45.5%;"></div>
+            <div class="water-droplet" style="right: 5.5%;"></div>
+            <div class="water-droplet" style="left: 15.5%;"></div>
+            
+            <!-- Water Splash Effects -->
+            <div class="water-splash" style="left: 7%;"></div>
+            <div class="water-splash" style="right: 11%;"></div>
+            <div class="water-splash" style="left: 24%;"></div>
+            <div class="water-splash" style="right: 29%;"></div>
+            <div class="water-splash" style="left: 69%;"></div>
+            <div class="water-splash" style="left: 44%;"></div>
+            <div class="water-splash" style="right: 4%;"></div>
+            <div class="water-splash" style="left: 14%;"></div>
+        </div>
     </div>
 
     <div class="container">
@@ -1410,6 +1490,72 @@
 
             // Smooth scrolling for better UX
             document.documentElement.style.scrollBehavior = 'smooth';
+
+            // Interactive Waterfall System
+            let waterfallTimeout;
+            const waterfalls = document.querySelectorAll('.waterfall');
+            const waterDroplets = document.querySelectorAll('.water-droplet');
+            const waterSplashes = document.querySelectorAll('.water-splash');
+
+            function activateWaterfalls() {
+                // Activate waterfalls with staggered timing
+                waterfalls.forEach((waterfall, index) => {
+                    setTimeout(() => {
+                        waterfall.classList.add('active');
+                    }, index * 200);
+                });
+
+                // Activate droplets with delay
+                setTimeout(() => {
+                    waterDroplets.forEach((droplet, index) => {
+                        setTimeout(() => {
+                            droplet.classList.add('active');
+                        }, index * 150);
+                    });
+                }, 800);
+
+                // Activate splashes with delay
+                setTimeout(() => {
+                    waterSplashes.forEach((splash, index) => {
+                        setTimeout(() => {
+                            splash.classList.add('active');
+                        }, index * 180);
+                    });
+                }, 1200);
+            }
+
+            function deactivateWaterfalls() {
+                waterfalls.forEach(waterfall => waterfall.classList.remove('active'));
+                waterDroplets.forEach(droplet => droplet.classList.remove('active'));
+                waterSplashes.forEach(splash => splash.classList.remove('active'));
+            }
+
+            // Mouse hover activation
+            document.addEventListener('mousemove', () => {
+                clearTimeout(waterfallTimeout);
+                activateWaterfalls();
+                
+                // Deactivate after 3 seconds of no mouse movement
+                waterfallTimeout = setTimeout(() => {
+                    deactivateWaterfalls();
+                }, 3000);
+            });
+
+            // Touch activation for mobile
+            document.addEventListener('touchstart', () => {
+                activateWaterfalls();
+                setTimeout(() => {
+                    deactivateWaterfalls();
+                }, 4000);
+            });
+
+            // Initial activation for first impression
+            setTimeout(() => {
+                activateWaterfalls();
+                setTimeout(() => {
+                    deactivateWaterfalls();
+                }, 2000);
+            }, 1000);
 
             // Photo gallery animations
             const photoObserver = new IntersectionObserver((entries) => {
