@@ -12,12 +12,31 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0d1421 0%, #1a2332 25%, #243447 50%, #2d4a5c 75%, #1e3a2f 100%);
+            font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(180deg, #0a0f1c 0%, #1a2332 15%, #1e3a2f 35%, #2d4a3d 60%, #1a2f1a 85%, #0d1b0d 100%);
             min-height: 100vh;
             overflow-x: hidden;
             color: white;
             position: relative;
+        }
+
+        /* Import Inter font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        /* Forest texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(34, 197, 94, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(5, 150, 105, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         /* Animated Background Elements */
@@ -34,25 +53,62 @@
 
         .floating-leaf {
             position: absolute;
-            width: 30px;
-            height: 30px;
-            background: linear-gradient(45deg, #2d5a3d, #4a7c59);
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            animation: floatLeaf 15s infinite ease-in-out;
-            opacity: 0.6;
+            width: 25px;
+            height: 35px;
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 30%, #15803d 70%, #166534 100%);
+            clip-path: polygon(50% 0%, 85% 25%, 100% 60%, 75% 100%, 25% 100%, 0% 60%, 15% 25%);
+            animation: floatLeaf 20s infinite ease-in-out;
+            opacity: 0.4;
+            filter: blur(0.5px);
         }
 
-        .floating-leaf:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
-        .floating-leaf:nth-child(2) { top: 30%; right: 10%; animation-delay: 3s; }
-        .floating-leaf:nth-child(3) { top: 60%; left: 15%; animation-delay: 6s; }
-        .floating-leaf:nth-child(4) { bottom: 20%; right: 20%; animation-delay: 9s; }
-        .floating-leaf:nth-child(5) { top: 80%; left: 80%; animation-delay: 12s; }
+        .floating-leaf::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1px;
+            height: 70%;
+            background: linear-gradient(to bottom, #15803d, #166534);
+            opacity: 0.8;
+        }
+
+        .floating-leaf:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; transform: rotate(15deg); }
+        .floating-leaf:nth-child(2) { top: 30%; right: 10%; animation-delay: 4s; transform: rotate(-20deg); }
+        .floating-leaf:nth-child(3) { top: 60%; left: 15%; animation-delay: 8s; transform: rotate(10deg); }
+        .floating-leaf:nth-child(4) { bottom: 20%; right: 20%; animation-delay: 12s; transform: rotate(-15deg); }
+        .floating-leaf:nth-child(5) { top: 80%; left: 80%; animation-delay: 16s; transform: rotate(25deg); }
+
+        /* Add floating particles */
+        .floating-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, #22c55e, #16a34a);
+            border-radius: 50%;
+            animation: floatParticle 25s infinite linear;
+            opacity: 0.3;
+        }
+
+        .floating-particle:nth-child(6) { top: 20%; left: 25%; animation-delay: 2s; }
+        .floating-particle:nth-child(7) { top: 70%; right: 15%; animation-delay: 6s; }
+        .floating-particle:nth-child(8) { bottom: 30%; left: 60%; animation-delay: 10s; }
+        .floating-particle:nth-child(9) { top: 45%; right: 35%; animation-delay: 14s; }
+        .floating-particle:nth-child(10) { bottom: 60%; left: 30%; animation-delay: 18s; }
 
         @keyframes floatLeaf {
-            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-            25% { transform: translateY(-30px) rotate(90deg) scale(1.1); }
-            50% { transform: translateY(-20px) rotate(180deg) scale(0.9); }
-            75% { transform: translateY(-40px) rotate(270deg) scale(1.2); }
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.4; }
+            25% { transform: translateY(-40px) rotate(5deg) scale(1.05); opacity: 0.6; }
+            50% { transform: translateY(-25px) rotate(-3deg) scale(0.95); opacity: 0.5; }
+            75% { transform: translateY(-50px) rotate(8deg) scale(1.1); opacity: 0.7; }
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+            10% { opacity: 0.3; transform: scale(1); }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) translateX(50px) scale(0); opacity: 0; }
         }
 
         .container {
@@ -190,16 +246,34 @@
 
         /* Activity Cards */
         .activity-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 25px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 28px;
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-origin: center;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modern glassmorphism hover effect */
+        .activity-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
         }
 
         .activity-card::before {
@@ -218,53 +292,76 @@
         }
 
         .activity-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transform: translateY(-20px) scale(1.04);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.25),
+                0 10px 30px rgba(16, 185, 129, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
-        /* Activity Types */
+        .activity-card:hover::after {
+            opacity: 1;
+        }
+
+        /* Activity Types - Forest Theme */
         .travel {
-            border-left: 5px solid #3b82f6;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+            border-left: 5px solid #0ea5e9;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(2, 132, 199, 0.06));
+            border-top: 1px solid rgba(14, 165, 233, 0.2);
         }
 
         .travel:hover {
-            border-left-color: #60a5fa;
-            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
+            border-left-color: #38bdf8;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.25),
+                0 10px 30px rgba(14, 165, 233, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.18), rgba(2, 132, 199, 0.09));
         }
 
         .meal {
-            border-left: 5px solid #f59e0b;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
+            border-left: 5px solid #ea580c;
+            background: linear-gradient(135deg, rgba(234, 88, 12, 0.12), rgba(194, 65, 12, 0.06));
+            border-top: 1px solid rgba(234, 88, 12, 0.2);
         }
 
         .meal:hover {
-            border-left-color: #fbbf24;
-            box-shadow: 0 25px 50px rgba(245, 158, 11, 0.3);
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.1));
+            border-left-color: #fb923c;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.25),
+                0 10px 30px rgba(234, 88, 12, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(234, 88, 12, 0.18), rgba(194, 65, 12, 0.09));
         }
 
         .attraction {
-            border-left: 5px solid #10b981;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+            border-left: 5px solid #16a34a;
+            background: linear-gradient(135deg, rgba(22, 163, 74, 0.12), rgba(21, 128, 61, 0.06));
+            border-top: 1px solid rgba(22, 163, 74, 0.2);
         }
 
         .attraction:hover {
-            border-left-color: #34d399;
-            box-shadow: 0 25px 50px rgba(16, 185, 129, 0.3);
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.1));
+            border-left-color: #4ade80;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.25),
+                0 10px 30px rgba(22, 163, 74, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(22, 163, 74, 0.18), rgba(21, 128, 61, 0.09));
         }
 
         .stay {
-            border-left: 5px solid #8b5cf6;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(124, 58, 237, 0.05));
+            border-left: 5px solid #7c3aed;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(109, 40, 217, 0.06));
+            border-top: 1px solid rgba(124, 58, 237, 0.2);
         }
 
         .stay:hover {
-            border-left-color: #a78bfa;
-            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3);
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.1));
+            border-left-color: #a855f7;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.25),
+                0 10px 30px rgba(124, 58, 237, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(109, 40, 217, 0.09));
         }
 
         /* Activity Content */
@@ -315,6 +412,207 @@
             50% { opacity: 1; transform: scale(1); }
         }
 
+        /* Adventure Memories Section */
+        .memories-section {
+            margin: 100px 0 80px 0;
+            text-align: center;
+        }
+
+        .memories-header {
+            margin-bottom: 50px;
+        }
+
+        .memories-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #22c55e, #16a34a, #15803d);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .memories-subtitle {
+            font-size: 1.2rem;
+            color: #a7f3d0;
+            opacity: 0.9;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .photo-placeholder {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 2px dashed rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            padding: 40px 20px;
+            aspect-ratio: 4/3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-placeholder:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(34, 197, 94, 0.6);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.1);
+        }
+
+        .photo-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .photo-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #d1d5db;
+        }
+
+        /* Journey Stats */
+        .journey-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 80px 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(34, 197, 94, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #a7f3d0;
+            font-weight: 500;
+        }
+
+        /* Conclusion Section */
+        .conclusion-section {
+            margin: 100px 0 60px 0;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .conclusion-quote {
+            margin-bottom: 60px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .conclusion-quote blockquote {
+            font-size: 1.4rem;
+            font-style: italic;
+            color: #d1fae5;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .conclusion-quote blockquote::before {
+            content: '"';
+            font-size: 4rem;
+            color: rgba(34, 197, 94, 0.3);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-family: serif;
+        }
+
+        .conclusion-quote cite {
+            color: #a7f3d0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .adventure-complete {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.05));
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .complete-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .adventure-complete h3 {
+            font-size: 2rem;
+            color: #22c55e;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .adventure-complete p {
+            font-size: 1.1rem;
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
+        .next-adventure {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .next-adventure h4 {
+            font-size: 1.3rem;
+            color: #86efac;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .next-adventure p {
+            color: #d1d5db;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .activities-grid {
@@ -334,6 +632,40 @@
             
             .main-title {
                 font-size: 2.5rem;
+            }
+
+            .photo-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .journey-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .memories-title {
+                font-size: 2rem;
+            }
+
+            .conclusion-quote {
+                padding: 25px;
+            }
+
+            .conclusion-quote blockquote {
+                font-size: 1.2rem;
+            }
+
+            .adventure-complete {
+                padding: 25px;
+            }
+
+            .adventure-complete h3 {
+                font-size: 1.6rem;
             }
         }
 
@@ -358,6 +690,11 @@
         <div class="floating-leaf"></div>
         <div class="floating-leaf"></div>
         <div class="floating-leaf"></div>
+        <div class="floating-particle"></div>
+        <div class="floating-particle"></div>
+        <div class="floating-particle"></div>
+        <div class="floating-particle"></div>
+        <div class="floating-particle"></div>
     </div>
 
     <div class="container">
@@ -677,6 +1014,82 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Adventure Memories Section -->
+            <div class="memories-section">
+                <div class="memories-header">
+                    <h2 class="memories-title">📸 Adventure Memories</h2>
+                    <p class="memories-subtitle">Capturing the magic of our Western Ghats expedition</p>
+                </div>
+                
+                <div class="photo-gallery">
+                    <div class="photo-placeholder" data-location="Kuvempu Mane">
+                        <div class="photo-icon">📷</div>
+                        <span class="photo-label">Kuvempu Mane</span>
+                    </div>
+                    <div class="photo-placeholder" data-location="Kavaledurga Fort">
+                        <div class="photo-icon">🏰</div>
+                        <span class="photo-label">Kavaledurga Fort</span>
+                    </div>
+                    <div class="photo-placeholder" data-location="Thombattu Falls">
+                        <div class="photo-icon">💧</div>
+                        <span class="photo-label">Thombattu Falls</span>
+                    </div>
+                    <div class="photo-placeholder" data-location="Belkal Theertha">
+                        <div class="photo-icon">⛰️</div>
+                        <span class="photo-label">Belkal Theertha</span>
+                    </div>
+                    <div class="photo-placeholder" data-location="Onake Abbi Falls">
+                        <div class="photo-icon">🌊</div>
+                        <span class="photo-label">Onake Abbi Falls</span>
+                    </div>
+                    <div class="photo-placeholder" data-location="Group Photo">
+                        <div class="photo-icon">👥</div>
+                        <span class="photo-label">Gang Together</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Journey Stats -->
+            <div class="journey-stats">
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Days of Adventure</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Adventurers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">12+</div>
+                    <div class="stat-label">Amazing Places</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Memories Made</div>
+                </div>
+            </div>
+
+            <!-- Final Quote & Conclusion -->
+            <div class="conclusion-section">
+                <div class="conclusion-quote">
+                    <blockquote>
+                        "The mountains are calling and we must go. In every walk with nature, one receives far more than they seek."
+                    </blockquote>
+                    <cite>- Inspired by John Muir</cite>
+                </div>
+                
+                <div class="adventure-complete">
+                    <div class="complete-icon">🎯</div>
+                    <h3>Adventure Complete!</h3>
+                    <p>From the misty hills of Agumbe to the thundering waterfalls of the Western Ghats, our journey has been filled with laughter, exploration, and unforgettable moments. Until our next adventure, these memories will keep the spirit of exploration alive in our hearts.</p>
+                </div>
+
+                <div class="next-adventure">
+                    <h4>🗺️ Planning the Next Adventure?</h4>
+                    <p>This itinerary template is ready for your next expedition. Simply update the details and create new memories!</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -810,7 +1223,73 @@
 
             // Smooth scrolling for better UX
             document.documentElement.style.scrollBehavior = 'smooth';
+
+            // Photo gallery animations
+            const photoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const photos = entry.target.querySelectorAll('.photo-placeholder');
+                        photos.forEach((photo, index) => {
+                            setTimeout(() => {
+                                photo.style.opacity = '1';
+                                photo.style.transform = 'translateY(0) scale(1)';
+                            }, index * 150);
+                        });
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            // Initialize photo animations
+            const photoGallery = document.querySelector('.photo-gallery');
+            if (photoGallery) {
+                photoGallery.querySelectorAll('.photo-placeholder').forEach(photo => {
+                    photo.style.opacity = '0';
+                    photo.style.transform = 'translateY(50px) scale(0.9)';
+                    photo.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                });
+                photoObserver.observe(photoGallery);
+            }
+
+            // Stats counter animation
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const numbers = entry.target.querySelectorAll('.stat-number');
+                        numbers.forEach((number, index) => {
+                            setTimeout(() => {
+                                number.style.animation = 'countUp 1s ease-out forwards';
+                            }, index * 200);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const journeyStats = document.querySelector('.journey-stats');
+            if (journeyStats) {
+                statsObserver.observe(journeyStats);
+            }
+
+            // Add click effect to photo placeholders
+            document.querySelectorAll('.photo-placeholder').forEach(placeholder => {
+                placeholder.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-10px) scale(1.02)';
+                    }, 150);
+                });
+            });
         });
+
+        // Add CSS for counter animation
+        const additionalStyle = document.createElement('style');
+        additionalStyle.textContent = `
+            @keyframes countUp {
+                0% { transform: scale(0.5) rotateY(180deg); opacity: 0; }
+                50% { transform: scale(1.1) rotateY(90deg); opacity: 0.7; }
+                100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(additionalStyle);
     </script>
 </body>
 </html>
