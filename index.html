@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Western Ghats Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d1421 0%, #1a2332 25%, #243447 50%, #2d4a5c 75%, #1e3a2f 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+            position: relative;
+        }
+
+        /* Animated Background Elements */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .floating-leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #2d5a3d, #4a7c59);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            animation: floatLeaf 15s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        .floating-leaf:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .floating-leaf:nth-child(2) { top: 30%; right: 10%; animation-delay: 3s; }
+        .floating-leaf:nth-child(3) { top: 60%; left: 15%; animation-delay: 6s; }
+        .floating-leaf:nth-child(4) { bottom: 20%; right: 20%; animation-delay: 9s; }
+        .floating-leaf:nth-child(5) { top: 80%; left: 80%; animation-delay: 12s; }
+
+        @keyframes floatLeaf {
+            0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-30px) rotate(90deg) scale(1.1); }
+            50% { transform: translateY(-20px) rotate(180deg) scale(0.9); }
+            75% { transform: translateY(-40px) rotate(270deg) scale(1.2); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #66d9a5, #4ade80, #22c55e, #16a34a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(102, 217, 165, 0.3);
+            margin-bottom: 15px;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(102, 217, 165, 0.5)); }
+            100% { filter: drop-shadow(0 0 25px rgba(102, 217, 165, 0.8)); }
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #86efac;
+            font-weight: 500;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        /* Days Container */
+        .days-container {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        .day {
+            position: relative;
+            opacity: 0;
+            animation: slideInUp 1s ease forwards;
+        }
+
+        .day:nth-child(1) { animation-delay: 0.2s; }
+        .day:nth-child(2) { animation-delay: 0.4s; }
+        .day:nth-child(3) { animation-delay: 0.6s; }
+        .day:nth-child(4) { animation-delay: 0.8s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Day Header */
+        .day-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .day-number {
+            background: linear-gradient(135deg, #059669, #10b981);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+            position: relative;
+            z-index: 5;
+        }
+
+        .day-number::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669, #047857);
+            z-index: -1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .day-info {
+            margin-left: 30px;
+        }
+
+        .day-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #66d9a5;
+            margin-bottom: 5px;
+        }
+
+        .day-date {
+            font-size: 1.2rem;
+            color: #a7f3d0;
+            font-weight: 500;
+        }
+
+        /* Activities Grid */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-left: 110px;
+        }
+
+        /* Activity Cards */
+        .activity-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: center;
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .activity-card:hover::before {
+            left: 100%;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Activity Types */
+        .travel {
+            border-left: 5px solid #3b82f6;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+        }
+
+        .travel:hover {
+            border-left-color: #60a5fa;
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
+        }
+
+        .meal {
+            border-left: 5px solid #f59e0b;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
+        }
+
+        .meal:hover {
+            border-left-color: #fbbf24;
+            box-shadow: 0 25px 50px rgba(245, 158, 11, 0.3);
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.1));
+        }
+
+        .attraction {
+            border-left: 5px solid #10b981;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+        }
+
+        .attraction:hover {
+            border-left-color: #34d399;
+            box-shadow: 0 25px 50px rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.1));
+        }
+
+        .stay {
+            border-left: 5px solid #8b5cf6;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(124, 58, 237, 0.05));
+        }
+
+        .stay:hover {
+            border-left-color: #a78bfa;
+            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.1));
+        }
+
+        /* Activity Content */
+        .activity-time {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #86efac;
+        }
+
+        .time-icon {
+            font-size: 1.3rem;
+            margin-right: 10px;
+        }
+
+        .activity-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .activity-description {
+            color: #d1d5db;
+            font-size: 1rem;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+
+        /* Special Effects */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: sparkle 2s linear infinite;
+        }
+
+        .sparkle:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 60%; right: 30%; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { bottom: 30%; left: 40%; animation-delay: 1s; }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .activities-grid {
+                margin-left: 0;
+                grid-template-columns: 1fr;
+            }
+            
+            .day-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .day-info {
+                margin-left: 0;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Scroll-triggered animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-leaf"></div>
+        <div class="floating-leaf"></div>
+        <div class="floating-leaf"></div>
+        <div class="floating-leaf"></div>
+        <div class="floating-leaf"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="main-title">🌲 WESTERN GHATS EXPEDITION 🌲</h1>
+            <p class="subtitle">Bangalore → Thirthahalli → Belkal Theertha → Agumbe → Bangalore</p>
+            
+            <!-- Gang Quote Section -->
+            <div style="margin-top: 40px; padding: 25px; background: rgba(16, 185, 129, 0.1); border: 2px solid rgba(16, 185, 129, 0.3); border-radius: 20px; backdrop-filter: blur(10px);">
+                <div style="font-size: 1.8rem; color: #66d9a5; font-weight: 700; margin-bottom: 15px; text-align: center;">
+                    "Seagram's Imperial Blue: Men will be men" 🍻
+                </div>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px;">
+                    <span style="background: linear-gradient(135deg, #059669, #10b981); padding: 8px 16px; border-radius: 25px; color: white; font-weight: 600; font-size: 0.95rem;">Nandan</span>
+                    <span style="background: linear-gradient(135deg, #059669, #10b981); padding: 8px 16px; border-radius: 25px; color: white; font-weight: 600; font-size: 0.95rem;">Dr. Prajwal</span>
+                    <span style="background: linear-gradient(135deg, #059669, #10b981); padding: 8px 16px; border-radius: 25px; color: white; font-weight: 600; font-size: 0.95rem;">Firing Star Suman</span>
+                    <span style="background: linear-gradient(135deg, #059669, #10b981); padding: 8px 16px; border-radius: 25px; color: white; font-weight: 600; font-size: 0.95rem;">Lazy Dog Puni</span>
+                    <span style="background: linear-gradient(135deg, #059669, #10b981); padding: 8px 16px; border-radius: 25px; color: white; font-weight: 600; font-size: 0.95rem;">Technical Mohan</span>
+                    <span style="background: linear-gradient(135deg, #059669, #10b981); padding: 8px 16px; border-radius: 25px; color: white; font-weight: 600; font-size: 0.95rem;">Nithyanandha Raghu</span>
+                    <span style="background: linear-gradient(135deg, #059669, #10b981); padding: 8px 16px; border-radius: 25px; color: white; font-weight: 600; font-size: 0.95rem;">Pratham</span>
+                    <span style="background: linear-gradient(135deg, #059669, #10b981); padding: 8px 16px; border-radius: 25px; color: white; font-weight: 600; font-size: 0.95rem;">Tejas</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Days Container -->
+        <div class="days-container">
+            
+            <!-- Day 1 -->
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-number">1</div>
+                    <div class="day-info">
+                        <div class="day-title">Day 1</div>
+                        <div class="day-date">August 14th, 2024</div>
+                    </div>
+                </div>
+                <div class="activities-grid">
+                    <div class="activity-card travel">
+                        <div class="activity-time">
+                            <span class="time-icon">🚗</span>
+                            10:00 AM
+                        </div>
+                        <div class="activity-name">Departure from Bangalore</div>
+                        <div class="activity-description">Start the adventure from RR Nagar, heading towards the lush Western Ghats. Destination: Thirthahalli</div>
+                    </div>
+                    
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">🍽️</span>
+                            1:00 PM
+                        </div>
+                        <div class="activity-name">Lunch En Route</div>
+                        <div class="activity-description">Karnataka cuisine at a roadside dhaba</div>
+                    </div>
+                    
+                    <div class="activity-card stay">
+                        <div class="activity-time">
+                            <span class="time-icon">🏨</span>
+                            Evening
+                        </div>
+                        <div class="activity-name">Hotel Check-in</div>
+                        <div class="activity-description">Rest and freshen up at a comfortable hotel in Thirthahalli. Unwind after the journey</div>
+                    </div>
+                    
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">🌙</span>
+                            8:00 PM
+                        </div>
+                        <div class="activity-name">Dinner</div>
+                        <div class="activity-description">Malnad cuisine at the nearby hotel</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-number">2</div>
+                    <div class="day-info">
+                        <div class="day-title">Day 2</div>
+                        <div class="day-date">August 15th, 2024</div>
+                    </div>
+                </div>
+                <div class="activities-grid">
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">☀️</span>
+                            8:00 AM
+                        </div>
+                        <div class="activity-name">Traditional Breakfast</div>
+                        <div class="activity-description">South Indian breakfast with filter coffee</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">🏛️</span>
+                            9:30 AM
+                        </div>
+                        <div class="activity-name">Kuvempu Mane</div>
+                        <div class="activity-description">Visit the birthplace of Karnataka's beloved poet laureate Kuvempu. Explore literary heritage</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">🏰</span>
+                            11:30 AM
+                        </div>
+                        <div class="activity-name">Kavaledurga Fort</div>
+                        <div class="activity-description">Ancient hilltop fort with breathtaking panoramic views. Rich history and stunning vistas</div>
+                    </div>
+                    
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">🍛</span>
+                            1:30 PM
+                        </div>
+                        <div class="activity-name">Lunch Break</div>
+                        <div class="activity-description">restaurant meal</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">💧</span>
+                            3:00 PM
+                        </div>
+                        <div class="activity-name">Thombattu Falls</div>
+                        <div class="activity-description">Refreshing waterfall experience. Crystal clear waters cascading through lush greenery</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">🌅</span>
+                            6:00 PM
+                        </div>
+                        <div class="activity-name">Holebagilu Viewpoint</div>
+                        <div class="activity-description">Spectacular sunset views over the Western Ghats. Golden hour photography paradise</div>
+                    </div>
+                    
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">🌙</span>
+                            8:30 PM
+                        </div>
+                        <div class="activity-name">Dinner</div>
+                        <div class="activity-description">dinner at the stay</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 3 -->
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-number">3</div>
+                    <div class="day-info">
+                        <div class="day-title">Day 3</div>
+                        <div class="day-date">August 16th, 2024</div>
+                    </div>
+                </div>
+                <div class="activities-grid">
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">☀️</span>
+                            7:30 AM
+                        </div>
+                        <div class="activity-name">Early Breakfast</div>
+                        <div class="activity-description">Quick breakfast before checkout</div>
+                    </div>
+                    
+                    <div class="activity-card travel">
+                        <div class="activity-time">
+                            <span class="time-icon">🚗</span>
+                            9:00 AM
+                        </div>
+                        <div class="activity-name">Check-out & Travel</div>
+                        <div class="activity-description">Leave your stay and continue the journey. Next destinations await!</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">🛕</span>
+                            10:00 AM
+                        </div>
+                        <div class="activity-name">Sri Devagange Temple</div>
+                        <div class="activity-description">Sacred temple complex with natural spring-fed pond. Spiritual serenity in nature</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">🌊</span>
+                            11:30 AM
+                        </div>
+                        <div class="activity-name">Chakra Dam</div>
+                        <div class="activity-description">Scenic reservoir surrounded by hills. Perfect for photography and peaceful moments</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">🏞️</span>
+                            12:30 PM
+                        </div>
+                        <div class="activity-name">Savehaklu Dam</div>
+                        <div class="activity-description">Another picturesque dam location. Serene waters reflecting the surrounding greenery</div>
+                    </div>
+                    
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">🍽️</span>
+                            2:00 PM
+                        </div>
+                        <div class="activity-name">Lunch</div>
+                        <div class="activity-description">restaurant meal</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">⛰️</span>
+                            4:00 PM
+                        </div>
+                        <div class="activity-name">Belkal Theertha</div>
+                        <div class="activity-description">Stunning valley viewpoint with sacred pond. Breathtaking vistas and spiritual ambiance</div>
+                    </div>
+                    
+                    <div class="activity-card stay">
+                        <div class="activity-time">
+                            <span class="time-icon">🏡</span>
+                            6:30 PM
+                        </div>
+                        <div class="activity-name">Nisarga Homestay, Agumbe</div>
+                        <div class="activity-description">Check into the "Cherrapunji of South India". Experience authentic homestay hospitality</div>
+                    </div>
+                    
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">🌙</span>
+                            8:00 PM
+                        </div>
+                        <div class="activity-name">Homestay Dinner</div>
+                        <div class="activity-description">Authentic cuisine at homestay</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day 4 -->
+            <div class="day">
+                <div class="day-header">
+                    <div class="day-number">4</div>
+                    <div class="day-info">
+                        <div class="day-title">Day 4</div>
+                        <div class="day-date">August 17th, 2024</div>
+                    </div>
+                </div>
+                <div class="activities-grid">
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">☀️</span>
+                            7:00 AM
+                        </div>
+                        <div class="activity-name">Homestay Breakfast</div>
+                        <div class="activity-description">Homestay breakfast with filter coffee</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">💧</span>
+                            9:00 AM
+                        </div>
+                        <div class="activity-name">Onake Abbi Falls</div>
+                        <div class="activity-description">Majestic waterfall cascading through pristine forests. Nature's grand spectacle</div>
+                    </div>
+                    
+                    <div class="activity-card attraction">
+                        <div class="activity-time">
+                            <span class="time-icon">🌿</span>
+                            11:00 AM
+                        </div>
+                        <div class="activity-name">Jogigundi Falls</div>
+                        <div class="activity-description">Hidden gem waterfall surrounded by dense vegetation. Perfect finale to the waterfall trail</div>
+                    </div>
+                    
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">🍽️</span>
+                            1:30 PM
+                        </div>
+                        <div class="activity-name">Special Farewell Lunch</div>
+                        <div class="activity-description">cuisine in the Western Ghats</div>
+                    </div>
+                    
+                    <div class="activity-card travel">
+                        <div class="activity-time">
+                            <span class="time-icon">🚗</span>
+                            3:00 PM
+                        </div>
+                        <div class="activity-name">Journey Home</div>
+                        <div class="activity-description">Begin the return journey to Bangalore. Carry beautiful memories of the Western Ghats</div>
+                    </div>
+                    
+                    <div class="activity-card meal">
+                        <div class="activity-time">
+                            <span class="time-icon">🌙</span>
+                            9:00 PM
+                        </div>
+                        <div class="activity-name">Dinner En Route</div>
+                        <div class="activity-description">food during return journey</div>
+                    </div>
+                    
+                    <div class="activity-card travel">
+                        <div class="activity-time">
+                            <span class="time-icon">🏠</span>
+                            11:00 PM
+                        </div>
+                        <div class="activity-name">Home Sweet Home</div>
+                        <div class="activity-description">Arrive back at RR Nagar with hearts full of memories. Adventure complete!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sparkles for extra magic -->
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+
+    <script>
+        // Enhanced animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Staggered card animations on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const cards = entry.target.querySelectorAll('.activity-card');
+                        cards.forEach((card, index) => {
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, index * 100);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            // Initialize card animations
+            document.querySelectorAll('.activities-grid').forEach(grid => {
+                const cards = grid.querySelectorAll('.activity-card');
+                cards.forEach(card => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(30px)';
+                    card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                });
+                cardObserver.observe(grid);
+            });
+
+            // Enhanced hover effects with 3D transform
+            document.querySelectorAll('.activity-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.03) rotateX(5deg)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1) rotateX(0deg)';
+                });
+
+                // Add random sparkle effect on hover
+                card.addEventListener('mouseenter', function() {
+                    const sparkles = 3;
+                    for(let i = 0; i < sparkles; i++) {
+                        setTimeout(() => {
+                            createSparkle(this);
+                        }, i * 100);
+                    }
+                });
+            });
+
+            // Create sparkle effect
+            function createSparkle(element) {
+                const sparkle = document.createElement('div');
+                sparkle.style.position = 'absolute';
+                sparkle.style.width = '6px';
+                sparkle.style.height = '6px';
+                sparkle.style.background = '#22c55e';
+                sparkle.style.borderRadius = '50%';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '1000';
+                
+                const rect = element.getBoundingClientRect();
+                sparkle.style.left = Math.random() * rect.width + 'px';
+                sparkle.style.top = Math.random() * rect.height + 'px';
+                
+                element.appendChild(sparkle);
+                
+                // Animate sparkle
+                sparkle.animate([
+                    { opacity: 0, transform: 'scale(0) translateY(0px)' },
+                    { opacity: 1, transform: 'scale(1) translateY(-10px)' },
+                    { opacity: 0, transform: 'scale(0) translateY(-20px)' }
+                ], {
+                    duration: 800,
+                    easing: 'ease-out'
+                }).addEventListener('finish', () => {
+                    sparkle.remove();
+                });
+            }
+
+            // Parallax effect for floating leaves
+            document.addEventListener('mousemove', (e) => {
+                const leaves = document.querySelectorAll('.floating-leaf');
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                leaves.forEach((leaf, index) => {
+                    const speed = (index + 1) * 0.5;
+                    const x = mouseX * speed * 10;
+                    const y = mouseY * speed * 10;
+                    leaf.style.transform += ` translate(${x}px, ${y}px)`;
+                });
+            });
+
+            // Day number pulse animation on scroll
+            const dayNumbers = document.querySelectorAll('.day-number');
+            const numberObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'pulse 2s ease-in-out infinite, dayNumberGlow 1s ease forwards';
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            dayNumbers.forEach(number => {
+                numberObserver.observe(number);
+            });
+
+            // Add CSS for day number glow animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes dayNumberGlow {
+                    0% { box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4); }
+                    100% { box-shadow: 0 15px 40px rgba(16, 185, 129, 0.8), 0 0 30px rgba(16, 185, 129, 0.6); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Smooth scrolling for better UX
+            document.documentElement.style.scrollBehavior = 'smooth';
+        });
+    </script>
+</body>
+</html>
